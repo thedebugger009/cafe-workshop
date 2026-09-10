@@ -488,6 +488,48 @@ select {
   overflow: hidden;
 }
 
+.food-card-image::before,
+.hero-image::before,
+.about-image::before,
+.cart-item::before,
+.order-item-left::before {
+  content: "";
+  position: absolute;
+  background: linear-gradient(110deg, #e9ddd1 25%, #f8f1ea 45%, #e9ddd1 65%);
+  background-size: 200% 100%;
+  animation: image-shimmer 1.25s linear infinite;
+  z-index: 0;
+}
+
+.food-card-image::before { inset: 0; }
+.hero-image::before { inset: 0; border-radius: 24px; }
+.about-image::before { inset: 0; border-radius: 22px; }
+.cart-item::before { width: 110px; height: 95px; border-radius: 10px; }
+.order-item-left::before { width: 60px; height: 55px; border-radius: 8px; }
+
+.hero-image,
+.about-image,
+.cart-item,
+.order-item-left { position: relative; }
+
+.food-card-image img,
+.hero-image img,
+.about-image img,
+.cart-item img,
+.order-item img { position: relative; z-index: 1; }
+
+@keyframes image-shimmer {
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .food-card-image::before,
+  .hero-image::before,
+  .about-image::before,
+  .cart-item::before,
+  .order-item-left::before { animation: none; }
+}
+
 .food-card-image img {
   width: 100%;
   height: 100%;

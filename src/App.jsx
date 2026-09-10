@@ -1,24 +1,25 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Terms from "./pages/Terms";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import Home from "./pages/Home";
-import Menu from "./pages/Menu";
-import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
-import Orders from "./pages/Orders";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Profile from "./pages/Profile";
 import RequireAdmin from "./components/RequireAdmin";
-import AdminLogin from "./pages/AdminLogin";
-import AdminOrders from "./pages/AdminOrders";
-import AdminOrderDetail from "./pages/AdminOrderDetail";
-import NotFound from "./pages/NotFound";
+
+const Terms = lazy(() => import("./pages/Terms"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const Home = lazy(() => import("./pages/Home"));
+const Menu = lazy(() => import("./pages/Menu"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const Orders = lazy(() => import("./pages/Orders"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const Profile = lazy(() => import("./pages/Profile"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminOrders = lazy(() => import("./pages/AdminOrders"));
+const AdminOrderDetail = lazy(() => import("./pages/AdminOrderDetail"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const pageDetails = {
   "/": ["Brew & Bite Cafe | Coffee, Food & Good Moments", "Freshly brewed coffee, delicious food and sweet treats at Brew & Bite Cafe."],
@@ -55,6 +56,7 @@ function AppContent() {
   return (
     <>
      {!adminRoute && <Navbar />}
+      <Suspense fallback={<main aria-live="polite">Loading...</main>}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -94,6 +96,7 @@ function AppContent() {
 />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </Suspense>
       {!adminRoute && <Footer/>}
     </>
   );
